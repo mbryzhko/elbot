@@ -159,4 +159,12 @@
         </plugins>
     </build>
 
+    <scm>
+        <connection>
+            scm:git:https://github.com/mbryzhko/elbot.git
+        </connection>
+        <developerConnection>
+            scm:git:https://github.com/mbryzhko/elbot.git
+        </developerConnection>
+    </scm>
 </project>
