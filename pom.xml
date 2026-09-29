@@ -166,5 +166,6 @@
         <developerConnection>
             scm:git:https://github.com/mbryzhko/elbot.git
         </developerConnection>
+        <tag>HEAD</tag>
     </scm>
 </project>
