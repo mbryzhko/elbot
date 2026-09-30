@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine:21
+FROM eclipse-temurin:17.0.13_11-jre-noble
 LABEL org.opencontainers.image.authors="Maksym Bryzhko <maxim.bryzhko@gmail.com>"
 
 ARG JAR_FILE
