@@ -1,6 +1,9 @@
 FROM bellsoft/liberica-openjdk-alpine:21
+LABEL org.opencontainers.image.authors="Maksym Bryzhko <maxim.bryzhko@gmail.com>"
+
+ARG JAR_FILE
 
 WORKDIR /app
-COPY target/elbot-1.0-SNAPSHOT-jar-with-dependencies.jar /app/elbot.jar
+ADD target/${JAR_FILE} /app/elbot.jar
 
 ENTRYPOINT ["java", "-jar", "/app/elbot.jar"]
