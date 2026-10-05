@@ -4,7 +4,7 @@
 
     <groupId>org.bma.elbot</groupId>
     <artifactId>elbot</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.3-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
