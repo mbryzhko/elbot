@@ -19,6 +19,7 @@ public class GridMonitorJob {
     public GridMonitorJob(SignalReader reader, GpioProperties props) {
         this.reader = reader;
         this.props = props;
+        log.info("Grid Monitor Job Started with props: {}", props);
     }
 
     @Scheduled(fixedDelayString = "${" + GpioProperties.POLL_INTERVAL_VAR + ":1000}")

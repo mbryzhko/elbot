@@ -1,8 +1,10 @@
 package org.bma.elbot.config;
 
+import lombok.ToString;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+@ToString
 @Component
 public class GpioProperties {
     public static final String PIN_VAR = "ELBOT_GPIO_PIN";
