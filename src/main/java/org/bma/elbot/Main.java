@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan("org.bma.elbot")
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        var ctx = new AnnotationConfigApplicationContext();
-        ctx.registerShutdownHook();
-        Thread.currentThread().join();
+        var ctx = new AnnotationConfigApplicationContext("org.bma.elbot");
+//        ctx.registerShutdownHook();
+//        Thread.currentThread().join();
     }
 }
