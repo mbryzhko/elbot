@@ -1,10 +1,16 @@
+# --- build pigpio ---
+FROM eclipse-temurin:17.0.13_11-jre-noble AS pigpio-build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential wget unzip ca-certificates \
+ && wget -q https://github.com/joan2937/pigpio/archive/refs/heads/master.zip \
+ && unzip master.zip && cd pigpio-master \
+ && make && make install
+
+
 FROM eclipse-temurin:17.0.13_11-jre-noble
 LABEL org.opencontainers.image.authors="Maksym Bryzhko <maxim.bryzhko@gmail.com>"
 
-# Pi4J's bundled libpi4j-pigpio.so links against the system libpigpio.so.1
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libpigpio1 \
-    && rm -rf /var/lib/apt/lists/*
+COPY --from=pigpio-build /usr/local/lib/libpigpio.so* /usr/local/lib/
 
 ARG JAR_FILE
 
