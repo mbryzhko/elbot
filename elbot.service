@@ -1,0 +1,12 @@
+[Unit]
+Description=Elbot grid monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/home/pi/elbot/elbot.env
+ExecStart=/home/pi/elbot/elbot.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
