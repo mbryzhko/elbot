@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Elbot installer / updater
+# Ver: 0.1
 # Usage:
 #   bash install.sh          – first install (prompts for Telegram credentials)
 #   bash install.sh --update – update script + service unit, keep existing elbot.env
