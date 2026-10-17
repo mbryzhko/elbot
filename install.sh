@@ -8,8 +8,6 @@ set -euo pipefail
 INSTALL_DIR="/home/pi/elbot"
 SERVICE_NAME="elbot"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
-SCRIPT_URL="https://raw.githubusercontent.com/mbryzhko/elbot/${BRANCH}/elbot.sh"
-SERVICE_URL="https://raw.githubusercontent.com/mbryzhko/elbot/${BRANCH}/elbot.service"
 
 UPDATE_ONLY=false
 BRANCH="main"
@@ -23,6 +21,9 @@ while [ $# -gt 0 ]; do
   esac
   shift
 done
+
+SCRIPT_URL="https://raw.githubusercontent.com/mbryzhko/elbot/${BRANCH}/elbot.sh"
+SERVICE_URL="https://raw.githubusercontent.com/mbryzhko/elbot/${BRANCH}/elbot.service"
 
 require_root() {
   if [ "$(id -u)" -ne 0 ]; then
