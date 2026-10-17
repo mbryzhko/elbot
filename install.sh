@@ -8,13 +8,21 @@ set -euo pipefail
 INSTALL_DIR="/home/pi/elbot"
 SERVICE_NAME="elbot"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
-SCRIPT_URL="https://raw.githubusercontent.com/mbryzhko/elbot/main/elbot.sh"
-SERVICE_URL="https://raw.githubusercontent.com/mbryzhko/elbot/main/elbot.service"
+SCRIPT_URL="https://raw.githubusercontent.com/mbryzhko/elbot/${BRANCH}/elbot.sh"
+SERVICE_URL="https://raw.githubusercontent.com/mbryzhko/elbot/${BRANCH}/elbot.service"
 
 UPDATE_ONLY=false
-if [ "${1:-}" = "--update" ]; then
-  UPDATE_ONLY=true
-fi
+BRANCH="main"
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --update) UPDATE_ONLY=true ;;
+    --branch) BRANCH="${2:?--branch requires a value}"; shift ;;
+    --branch=*) BRANCH="${1#--branch=}" ;;
+    *) echo "Unknown argument: $1" >&2; exit 1 ;;
+  esac
+  shift
+done
 
 require_root() {
   if [ "$(id -u)" -ne 0 ]; then
