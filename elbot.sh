@@ -35,11 +35,13 @@ status_of() {
 }
 
 send() {
-  if ! curl -fsS -m 10 -o /dev/null -X POST \
+  local err
+  err="$(curl -fsS -m 10 -o /dev/null -X POST \
       "https://api.telegram.org/bot${TOKEN}/sendMessage" \
       --data-urlencode "chat_id=${CHAT_ID}" \
-      --data-urlencode "text=$1" 2>/dev/null; then
-    log "failed to send telegram message: $1"
+      --data-urlencode "text=$1" 2>&1)"
+  if [ $? -ne 0 ]; then
+    log "failed to send telegram message: $1 | curl error: $err"
   fi
 }
 
