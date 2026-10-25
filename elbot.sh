@@ -3,7 +3,7 @@
 # Signal 1 = no electricity (OFF_GRID), 0 = power OK (ON_GRID).
 set -u
 
-VERSION="0.1"
+VERSION="0.2"
 PIN="${ELBOT_GPIO_PIN:-17}"
 INTERVAL="${ELBOT_POLL_INTERVAL_SEC:-5}"
 TOKEN="${ELBOT_TELEGRAM_TOKEN:-}"
