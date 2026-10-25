@@ -7,8 +7,14 @@ PIN="${ELBOT_GPIO_PIN:-17}"
 INTERVAL="${ELBOT_POLL_INTERVAL_SEC:-5}"
 TOKEN="${ELBOT_TELEGRAM_TOKEN:-}"
 CHAT_ID="${ELBOT_TELEGRAM_CHAT_ID:-}"
+LOG_FILE="${TMPDIR:-/tmp}/elbot.log"
 
-log() { echo "$(date '+%F %T') $*" >&2; }
+log() {
+  local msg
+  msg="$(date '+%F %T') $*"
+  echo "$msg" >&2
+  echo "$msg" >> "$LOG_FILE"
+}
 
 if [ -z "$TOKEN" ] || [ -z "$CHAT_ID" ]; then
   log "ELBOT_TELEGRAM_TOKEN and ELBOT_TELEGRAM_CHAT_ID must be set"
