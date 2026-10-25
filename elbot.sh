@@ -3,6 +3,7 @@
 # Signal 1 = no electricity (OFF_GRID), 0 = power OK (ON_GRID).
 set -u
 
+VERSION="0.1"
 PIN="${ELBOT_GPIO_PIN:-17}"
 INTERVAL="${ELBOT_POLL_INTERVAL_SEC:-5}"
 TOKEN="${ELBOT_TELEGRAM_TOKEN:-}"
@@ -50,7 +51,7 @@ until level="$(read_level)"; [ -n "$level" ]; do
   sleep "$INTERVAL"
 done
 state="$(status_of "$level")"
-log "initial state: $state"
+log "Elbot started. initial state: $state. Version: $VERSION"
 if [ "$state" = "ON_GRID" ]; then
   send "🤖 Elbot started. Grid power: ON ⚡"
 else
