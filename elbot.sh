@@ -3,12 +3,19 @@
 # Signal 1 = no electricity (OFF_GRID), 0 = power OK (ON_GRID).
 set -u
 
+VERSION="0.2"
 PIN="${ELBOT_GPIO_PIN:-17}"
 INTERVAL="${ELBOT_POLL_INTERVAL_SEC:-5}"
 TOKEN="${ELBOT_TELEGRAM_TOKEN:-}"
 CHAT_ID="${ELBOT_TELEGRAM_CHAT_ID:-}"
+LOG_FILE="${TMPDIR:-/tmp}/elbot.log"
 
-log() { echo "$(date '+%F %T') $*" >&2; }
+log() {
+  local msg
+  msg="$(date '+%F %T') $*"
+  echo "$msg" >&2
+  echo "$msg" >> "$LOG_FILE"
+}
 
 if [ -z "$TOKEN" ] || [ -z "$CHAT_ID" ]; then
   log "ELBOT_TELEGRAM_TOKEN and ELBOT_TELEGRAM_CHAT_ID must be set"
@@ -28,11 +35,13 @@ status_of() {
 }
 
 send() {
-  if ! curl -fsS -m 10 -o /dev/null -X POST \
+  local err
+  err="$(curl -fsS -m 10 -o /dev/null -X POST \
       "https://api.telegram.org/bot${TOKEN}/sendMessage" \
       --data-urlencode "chat_id=${CHAT_ID}" \
-      --data-urlencode "text=$1" 2>/dev/null; then
-    log "failed to send telegram message: $1"
+      --data-urlencode "text=$1" 2>&1)"
+  if [ $? -ne 0 ]; then
+    log "failed to send telegram message: $1 | curl error: $err"
   fi
 }
 
@@ -44,7 +53,7 @@ until level="$(read_level)"; [ -n "$level" ]; do
   sleep "$INTERVAL"
 done
 state="$(status_of "$level")"
-log "initial state: $state"
+log "Elbot started. initial state: $state. Version: $VERSION"
 if [ "$state" = "ON_GRID" ]; then
   send "🤖 Elbot started. Grid power: ON ⚡"
 else
