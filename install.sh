@@ -40,6 +40,7 @@ require_cmd() {
 require_root
 require_cmd curl
 require_cmd systemctl
+require_cmd jq
 
 echo "==> Creating install directory: $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"
